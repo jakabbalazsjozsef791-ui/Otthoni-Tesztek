@@ -1,2 +1,9 @@
-# Benchmark_2026Teszt
-Links: 1. -https://github.com/jakabbalazsjozsef791-ui/Otthoni-Tesztek/tree/master/Benchmark_2026Teszt
+Made for a test
+
+Feel free to use the code in the folders
+
+----------------------------------------------------------
+
+Ez egy teszt
+
+Nyugodtan lehet a kódokat használni, amik a mappákban található
