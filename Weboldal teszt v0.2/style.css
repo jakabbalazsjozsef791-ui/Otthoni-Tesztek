@@ -1,0 +1,18 @@
+/* title {
+    font-style: italic;
+} */
+
+.leftSide {
+    padding: 5pt;
+    text-align: left;
+}
+
+.family {
+    /* display: flex; */
+    text-align: right;
+}
+
+.osszes {
+    display: flex;
+    gap: 350px;
+}
