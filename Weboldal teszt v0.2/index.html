@@ -24,12 +24,12 @@
 
             
             <!-- hire a kid to make & sell lemonade -->
-            <button id="buy" style="display: none;">Hire a kid to make & sell lemonade (costs 10 bucks and gives 1 buck every ten seconds)</button>
+            <button id="buyKid" style="display: none;">Hire a kid to make & sell lemonade (costs 10 bucks and gives 1 buck every ten seconds)</button>
 
 
             <!--  -->
             <br>
-            <button id="gomb2" style="display: none;">Hire groups of children (costs 50 bucks and gives 10 bucks every five seconds)</button>
+            <button id="buyGroup" style="display: none;">Hire groups of children (costs 50 bucks and gives 10 bucks every five seconds)</button>
 
             <button id="invest" style="display: none;">Invest in stocks (costs 1000 bucks and gives back 50 bucks every few seconds)</button>
         </div>
@@ -40,8 +40,9 @@
         </div>
     </div>
 
-    <!-- style="display: none;" -->
-    
+    <button id="saveGame">Save Game</button>
+    <input type="file" id="loadFile" accept=".json">
+    <p>Load Game from JSON file</p>
 
     <script src="./script.js"></script>
 </body>

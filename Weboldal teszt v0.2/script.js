@@ -6,13 +6,16 @@
 // used to buy lemonade
 const gomb = document.getElementById('gomb');
 
-// used to "buy groups" of children to make lemonade
-const gomb2 = document.getElementById('gomb2');
-
 // hire a kid to make & sell lemonade
-const buy = document.getElementById('buy');
+const buyKid = document.getElementById('buyKid');
 
-// const szoveg = document.getElementById('titkos2');
+// used to "buy groups" of children to make lemonade
+const buyGroup = document.getElementById('buyGroup');
+
+// used to save the game
+const saveGameButton = document.getElementById('saveGame');
+
+// used to invest in stocks
 const invest = document.getElementById('invest');
 
 // counter for money
@@ -24,9 +27,9 @@ const family = document.getElementById('fam');
 const motherAff = document.getElementById('mother_aff');
 
 // counter for buyables
-var kid = 0;
-var group = 0;
-var stock = 0;
+let kid = 0;
+let group = 0;
+let stock = 0;
 
 
 // saving & loading data to JSON
@@ -37,10 +40,11 @@ function saveGame() {
         group: group,
         stock: stock
     };
-
+    
     localStorage.setItem("save", JSON.stringify(data));
 }
 
+// load game data from JSON
 function loadGame() {
     const save = localStorage.getItem("save");
 
@@ -56,54 +60,49 @@ function loadGame() {
 
 loadGame();
 
-// save game every 30 seconds
-setInterval(saveGame, 30000);
+// save game to JSON file
+function saveToJSONFile() {
+    const blob = new Blob([JSON.stringify({
+        counter: Number(counter.textContent),
+        kid: kid,
+        group: group,
+        stock: stock
+    })], { type: "application/json" });
 
-gomb.addEventListener("click", () => {
-    // document.body.style.backgroundColor = "green";
-    counter.textContent = Number(counter.textContent) + 1;
-    if (Number(counter.textContent) > 10)  {
-        buy.style.display = "block";
-        // szoveg.style.display = "block";
-    }
-    saveGame();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+
+    a.href = url;
+    a.download = "gameSave.json";
+    a.click();
+    URL.revokeObjectURL(url);
+};
+
+saveGameButton.addEventListener("click", () => {
+    saveToJSONFile();
 });
 
+// load game from JSON file
+document.getElementById("loadFile").addEventListener("change", (event) => {
+    const file = event.target.files[0];
 
+    if (!file) return;
 
-// gomb2.addEventListener("click", () => {
-//     document.body.style.backgroundColor = "white";
-// });
+    const reader = new FileReader();
 
-buy.addEventListener("click", () => {
-    if (Number(counter.textContent) >= 10) 
-    {
-        counter.textContent = Number(counter.textContent) - 10;
-        setInterval(() => {
-        counter.textContent = Number(counter.textContent) + 1;
-    }, 10000)
-    kid++;
-    }
+    reader.onload = () => {
+        const saveData = JSON.parse(reader.result);
 
-    if (Number(counter.textContent) >= 100) {
-        gomb2.style.display = "block";
-    }
-    saveGame();
-});
+        // Apply save data
+        counter.textContent = saveData.counter;
+        kid = saveData.kid;
+        group = saveData.group;
+        stock = saveData.stock;
 
-gomb2.addEventListener("click", () => {
-    if (Number(counter.textContent) >= 50) {
-        counter.textContent = Number(counter.textContent) - 50;
-        setInterval(() => {
-            counter.textContent = Number(counter.textContent) + 10;
-        }, 5000)
-        group++;
-    }
-    
-    if (Number(counter.textContent) >= 1000) {
-        family.style.display = "block";
-    }  
-    saveGame();
+        updateScreen();
+    };
+
+    reader.readAsText(file);
 });
 
 // reload workers, groups, etc
@@ -133,3 +132,48 @@ function loadGame() {
         }
     }
 }
+
+// save game every 30 seconds
+setInterval(saveGame, 30000);
+
+gomb.addEventListener("click", () => {
+    // document.body.style.backgroundColor = "green";
+    counter.textContent = Number(counter.textContent) + 1;
+    if (Number(counter.textContent) > 10)  {
+        buyKid.style.display = "block";
+    }
+    saveGame();
+});
+
+
+
+buyKid.addEventListener("click", () => {
+    if (Number(counter.textContent) >= 10) 
+    {
+        counter.textContent = Number(counter.textContent) - 10;
+        setInterval(() => {
+        counter.textContent = Number(counter.textContent) + 1;
+    }, 10000)
+    kid++;
+    }
+
+    if (Number(counter.textContent) >= 100) {
+        buyGroup.style.display = "block";
+    }
+    saveGame();
+});
+
+buyGroup.addEventListener("click", () => {
+    if (Number(counter.textContent) >= 50) {
+        counter.textContent = Number(counter.textContent) - 50;
+        setInterval(() => {
+            counter.textContent = Number(counter.textContent) + 10;
+        }, 5000)
+        group++;
+    }
+    
+    if (Number(counter.textContent) >= 1000) {
+        family.style.display = "block";
+    }  
+    saveGame();
+});

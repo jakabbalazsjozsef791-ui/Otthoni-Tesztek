@@ -16,3 +16,9 @@
     display: flex;
     gap: 350px;
 }
+
+#saveGame {
+    text-align:end;
+    top: 10px;
+    right: 10px;
+}
