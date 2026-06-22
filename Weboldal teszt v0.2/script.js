@@ -32,34 +32,6 @@ let group = 0;
 let stock = 0;
 
 
-// saving & loading data to JSON
-function saveGame() {
-    const data = {
-        counter: Number(counter.textContent),
-        kid: kid,
-        group: group,
-        stock: stock
-    };
-    
-    localStorage.setItem("save", JSON.stringify(data));
-}
-
-// load game data from JSON
-function loadGame() {
-    const save = localStorage.getItem("save");
-
-    if (save) {
-        const data = JSON.parse(save);
-
-        counter.textContent = data.counter;
-        kid = data.kid;
-        group = data.group;
-        stock = data.stock;
-    }
-}
-
-loadGame();
-
 // save game to JSON file
 function saveToJSONFile() {
     const blob = new Blob([JSON.stringify({
@@ -99,23 +71,10 @@ document.getElementById("loadFile").addEventListener("change", (event) => {
         group = saveData.group;
         stock = saveData.stock;
 
-        updateScreen();
-    };
-
-    reader.readAsText(file);
-});
-
-// reload workers, groups, etc
-function loadGame() {
-    const save = localStorage.getItem("save");
-
-    if (save) {
-        const data = JSON.parse(save);
-
-        counter.textContent = data.counter;
-        kid = data.kid;
-        group = data.group;
-        stock = data.stock;
+        counter.textContent = saveData.counter;
+        kid = saveData.kid;
+        group = saveData.group;
+        stock = saveData.stock;
 
         for(let i = 0; i < kid; i++) {
             setInterval(() => {
@@ -129,20 +88,21 @@ function loadGame() {
                 counter.textContent =
                     Number(counter.textContent) + 10;
             }, 5000);
-        }
-    }
-}
 
-// save game every 30 seconds
-setInterval(saveGame, 30000);
+        updateScreen();
+        };
+    };
+
+    reader.readAsText(file);
+});
 
 gomb.addEventListener("click", () => {
     // document.body.style.backgroundColor = "green";
     counter.textContent = Number(counter.textContent) + 1;
-    if (Number(counter.textContent) > 10)  {
-        buyKid.style.display = "block";
-    }
-    saveGame();
+    // if (Number(counter.textContent) > 10)  {
+    //     buyKid.style.display = "block";
+    // }
+    // saveGame();
 });
 
 
@@ -157,10 +117,10 @@ buyKid.addEventListener("click", () => {
     kid++;
     }
 
-    if (Number(counter.textContent) >= 100) {
-        buyGroup.style.display = "block";
-    }
-    saveGame();
+    // if (Number(counter.textContent) >= 100) {
+    //     buyGroup.style.display = "block";
+    // }
+    // saveGame();
 });
 
 buyGroup.addEventListener("click", () => {
@@ -172,8 +132,24 @@ buyGroup.addEventListener("click", () => {
         group++;
     }
     
-    if (Number(counter.textContent) >= 1000) {
-        family.style.display = "block";
-    }  
-    saveGame();
+    // if (Number(counter.textContent) >= 1000) {
+    //     family.style.display = "block";
+    // }  
+    // saveGame();
 });
+
+function buyKidAppears() {
+    if (Number(counter.textContent) >= 10)  {
+        buyKid.style.display = "block";
+    }
+};
+
+setInterval(buyKidAppears, 1000);
+
+function buyGroupAppears() {
+    if (Number(counter.textContent) >= 100) {
+        buyGroup.style.display = "block";
+    };
+};
+
+setInterval(buyGroupAppears, 1000);

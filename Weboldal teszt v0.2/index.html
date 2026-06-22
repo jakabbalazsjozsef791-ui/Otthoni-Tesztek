@@ -13,25 +13,21 @@
             <p>Your mission is to make as many bucks as possiple. You can start simple by making lemonade for people.</p>
 
             <!-- This button makes money -->
-            <button id="gomb">Make a lemonade</button>
-
-            <!-- <p>ez a gomb meg vissza váltja a színt</p>
-
-            <button id="gomb2">Gomb</button> -->
+            <button id="gomb" class="buttonType">Make a lemonade</button>
 
             <h2>Bucks Counter:</h2>
             <p id="counter">0</p>
 
             
             <!-- hire a kid to make & sell lemonade -->
-            <button id="buyKid" style="display: none;">Hire a kid to make & sell lemonade (costs 10 bucks and gives 1 buck every ten seconds)</button>
+            <button id="buyKid" class="buttonType" style="display: none;">Hire a kid to make & sell lemonade (costs 10 bucks and gives 1 buck every ten seconds)</button>
 
 
-            <!--  -->
+            
             <br>
-            <button id="buyGroup" style="display: none;">Hire groups of children (costs 50 bucks and gives 10 bucks every five seconds)</button>
+            <button id="buyGroup" class="buttonType" style="display: none;">Hire groups of children (costs 50 bucks and gives 10 bucks every five seconds)</button>
 
-            <button id="invest" style="display: none;">Invest in stocks (costs 1000 bucks and gives back 50 bucks every few seconds)</button>
+            <button id="invest" class="buttonType" style="display: none;">Invest in stocks (costs 1000 bucks and gives back 50 bucks every few seconds)</button>
         </div>
         <div class="family" style="display: none;" id="fam">
             <h1>This is your private/familial life.</h1>
@@ -40,9 +36,14 @@
         </div>
     </div>
 
-    <button id="saveGame">Save Game</button>
+    <button id="saveGame" class="buttonType">Save Game</button>
+
+    <br>
+    <br>
+
+    <p>Load Game from JSON file:</p>
     <input type="file" id="loadFile" accept=".json">
-    <p>Load Game from JSON file</p>
+    
 
     <script src="./script.js"></script>
 </body>
